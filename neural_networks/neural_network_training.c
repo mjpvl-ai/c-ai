@@ -1,6 +1,7 @@
 #include "neural_network_training.h"
 #include "../Basic_Linear_Algebra_Operations/loss_functions.h"
 #include "../optimization/gradient_descent.h"
+#include"../neural_networks/simple_neural_network.h"
 #include <stdlib.h>
 
 void train_neural_network(NeuralNetwork *network, const double *X, const double *y, int num_samples, int epochs, double learning_rate) {

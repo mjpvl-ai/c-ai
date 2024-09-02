@@ -1,36 +1,51 @@
+# Makefile for compiling ai_program
+
 # Compiler
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -O2
+# CFLAGS = -Wall -Wextra -Werror -O2
 
-# Directories
-OBJ_DIR = obj
-BIN_DIR = bin
+# Linker flags
+LDFLAGS = -lm
 
 # Source files
-SRCS = $(wildcard *.c)
-# Object files corresponding to source files
-OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+SOURCES = analytics.c \
+          activation/activation_functions.c \
+          Basic_Linear_Algebra_Operations/dot_product.c \
+          Basic_Linear_Algebra_Operations/loss_functions.c \
+          Basic_Linear_Algebra_Operations/vector_ops.c \
+          data_preprocessing/data_preprocessing.c \
+          matrix_operations/matrix_determinant.c \
+          matrix_operations/matrix_inversion.c \
+          matrix_operations/matrix_ops.c \
+          matrix_operations/matrix_transpose.c \
+          momentum/momentum.c \
+          neural_networks/dense_layer.c \
+          neural_networks/neural_network_training.c \
+          neural_networks/neural_networks.c \
+          optimization/adam.c \
+          optimization/gradient_descent.c \
+          optimization/learning_rate_schedule.c \
+          regularization/regularization.c \
+          statistics/statistics.c \
+          supervised_learning/supervised_learning.c \
+          unsupervised_learning/unsupervised_learning.c \
+          neural_networks/simple_neural_network.c
 
-# Executable
-TARGET = $(BIN_DIR)/ai_library_test
+# Output binary
+TARGET = ai_program
 
-# Rules
+# Default target
 all: $(TARGET)
 
-# Link the final executable
-$(TARGET): $(OBJS)
-	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) -lm
+# Rule to build the target
+$(TARGET): $(SOURCES)
+	$(CC) $(CFLAGS) -o $@ $(SOURCES) $(LDFLAGS)
 
-# Compile source files to object files
-$(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Clean up
+# Clean up build artifacts
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -f $(TARGET)
 
+# Phony targets
 .PHONY: all clean
